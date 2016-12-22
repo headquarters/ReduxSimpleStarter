@@ -1,12 +1,23 @@
-import { renderComponent , expect } from '../test_helper';
-import CommentBox from '../../src/components/comment_box';
+import React, { Component } from 'react';
 
-describe('CommentBox' , () => {
-  it('has a textarea', () => {
-    let component = renderComponent(CommentBox);
-  });
+export default class CommentBox extends Component {
+  constructor(props) {
+    super(props);
 
-  it('has a button', () => {
-    let component = renderComponent(CommentBox);
-  });
-});
+    this.state = {
+      comment: ''
+    };
+  }
+  handleChange(event) {
+    this.setState({ comment: event.target.value });
+  }
+
+  render() {
+    return (
+      <div className="comment-box">
+        <textarea value={this.state.comment} onChange={this.handleChange.bind(this)} />
+        <button>Submit comment</button>
+      </div>
+    )
+  }
+}
