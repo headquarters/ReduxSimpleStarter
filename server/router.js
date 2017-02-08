@@ -1,7 +1,6 @@
-var router = require('express').Router();
+const Authentication = require('./controllers/authentication');
+const router = require('express').Router();
 
-router.use(function(req, res, next) {
-    res.send(['a', 'b', 'c']);
-});
+router.use('/signup', Authentication.signup);
 
 module.exports = router;
