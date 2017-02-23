@@ -9,7 +9,7 @@ const localOptions = {
     usernameField: 'email'
 };
 
-const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
+const localSignin = new LocalStrategy(localOptions, function(email, password, done) {
     User.findOne({ email: email }, function (err, user) {
         if (err) {
             return done(err);
@@ -38,7 +38,7 @@ const jwtOptions = {
     secretOrKey: config.secret
 };
 
-const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
+const jwtSignin = new JwtStrategy(jwtOptions, function(payload, done) {
     // `sub` is the `subject` of the token, in this case the user's ID
     User.find(payload.sub, function(err, user) {
         if (err) {
@@ -53,5 +53,5 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     });
 });
 
-passport.use(jwtLogin);
-passport.use(localLogin);
+passport.use(jwtSignin);
+passport.use(localSignin);
