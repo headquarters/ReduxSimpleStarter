@@ -14,6 +14,7 @@ export function signinUser({ email, password }) {
         dispatch({ type: AUTH_USER })
 
         // store JWT token
+        localStorage.setItem('token', response.data.token);
 
         // redirect to /feature
         browserHistory.push('/feature');
