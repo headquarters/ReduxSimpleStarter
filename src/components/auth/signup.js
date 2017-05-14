@@ -28,7 +28,10 @@ class Signup extends Component {
                 </div>
                 <div>
                     <label htmlFor="passwordConfirm">Confirm Password:</label>
-                    <input {...password} className="form-control" type="password" id="passwordConfirm" name="passwordConfirm" />
+                    <input {...passwordConfirm} className="form-control" type="password" id="passwordConfirm" name="passwordConfirm" />
+                    {passwordConfirm.touched 
+                      && passwordConfirm.error
+                      && <div className="error">{passwordConfirm.error}</div>}
                 </div>
                 {this.renderAlert()}
             </fieldset>
@@ -42,7 +45,18 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
+function validate(formProps) {
+  let errors = {};
+
+  if (formProps.password !== formProps.passwordConfirm) {
+    errors.passwordConfirm = 'Passwords must match';
+  }
+
+  return errors;
+}
+
 export default reduxForm({
     form: 'signup',
-    fields: ['email', 'password', 'passwordConfirm']
+    fields: ['email', 'password', 'passwordConfirm'],
+    validate
 }, mapStateToProps, actions)(Signup);
