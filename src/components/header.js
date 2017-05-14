@@ -5,19 +5,17 @@ import { Link } from 'react-router';
 class Header extends Component {
   renderSigninOrSignout() {
     if(!this.props.authenticated) {
-      return <Link to="/signin">Sign in</Link>
+      return <Link to="/signin" className="nav-link">Sign in</Link>
     } else {
-      return <Link to="/signout">Sign out</Link>
+      return <Link to="/signout" className="nav-link">Sign out</Link>
     }
   }
 
   render() {
     return (
         <nav className="navbar navbar-light">
-            <ul className="nav navbar-nav">
-                <li className="nav-item">
-                    <Link to="/">Home</Link>
-                </li>
+            <Link to="/" className="navbar-brand">Home</Link>
+            <ul className="nav navbar-nav">               
                 <li className="nav-item">
                   {this.renderSigninOrSignout()}
                 </li>
@@ -33,7 +31,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return { authenticated: state.authenticated };
+  return { authenticated: state.auth.authenticated };
 }
 
 export default connect(mapStateToProps)(Header);
