@@ -31,6 +31,27 @@ export function signoutUser() {
   return { type: UNAUTH_USER };
 }
 
+export function signupUser({ email, password }) {
+  return function(dispatch) {
+    axios.post(`${API_URL}/signup`, { email, password })
+      .then(response => {
+        // update state
+        dispatch({ type: AUTH_USER })
+
+        // store JWT token
+        localStorage.setItem('token', response.data.token);
+
+        // redirect to /feature
+        browserHistory.push('/feature');
+      })
+      .catch(response => {
+        // axios is parsing the response so we have to go one level deeper
+        // https://www.udemy.com/react-redux-tutorial/learn/v4/questions/2119422
+        dispatch(authError(response.response.data.error));
+      });
+  }
+}
+
 export function authError(error) {
   return { 
     type: AUTH_ERROR,
