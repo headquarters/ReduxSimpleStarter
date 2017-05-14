@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
-class Signin extends Component {
+class Signup extends Component {
   handleFormSubmit({ email, password }) {
-    this.props.signinUser({ email, password });
+    this.props.signupUser({ email, password });
   }
 
   renderAlert() {
@@ -14,7 +14,7 @@ class Signin extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { email, password }} = this.props;
+    const { handleSubmit, fields: { email, password, passwordConfirm }} = this.props;
     return (
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
             <fieldset className="form-group">
@@ -26,9 +26,13 @@ class Signin extends Component {
                     <label htmlFor="password">Password:</label>
                     <input {...password} className="form-control" type="password" id="password" name="password" />
                 </div>
+                <div>
+                    <label htmlFor="passwordConfirm">Confirm Password:</label>
+                    <input {...password} className="form-control" type="password" id="passwordConfirm" name="passwordConfirm" />
+                </div>
                 {this.renderAlert()}
             </fieldset>
-            <button action="submit" className="btn btn-primary">Sign in</button>
+            <button action="submit" className="btn btn-primary">Sign up</button>
         </form>
     );
   }
@@ -39,6 +43,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-    form: 'signin',
-    fields: ['email', 'password']
-}, mapStateToProps, actions)(Signin);
+    form: 'signup',
+    fields: ['email', 'password', 'passwordConfirm']
+}, mapStateToProps, actions)(Signup);
