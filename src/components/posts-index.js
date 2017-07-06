@@ -22,7 +22,7 @@ class PostsIndex extends Component {
   renderPosts() {
     return _.map(this.props.posts, (post) => {
       return (
-        <li key={post.id}>{post.title}</li>
+        <li key={post.id}><Link to={`/posts/${post.id}`}>{post.title}</Link></li>
       )
     });
   }
